@@ -14,7 +14,7 @@ dump y.num + x.num # y.num + x.num = 42
 
 # dump y.num, x.num not compiles
 
-
+# same but with varargs
 import macros
 
 macro debug*(n: varargs[typed]): untyped =

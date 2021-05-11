@@ -1,6 +1,6 @@
 template `:=`(a, b: untyped) =
   var a = b
-
+# cant create ::
 template `:::`(a, b: untyped) =
   const a = b
 
