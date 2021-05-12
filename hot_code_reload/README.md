@@ -1,9 +1,11 @@
+Example from https://nim-lang.org/docs/hcr.html  
 For Arch:  
-`nim c --outdir:$PWD /usr/lib/nim/nimrtl.nim`  
-`nim c --outdir:$PWD /usr/lib/nim/nimhcr.nim`  
-`export LD_LIBRARY_PATH=.`  
-`nim c --hotcodereloading:on main.nim`  
-`./main`  
+1) `nimble install sdl2`  
+2) `nim c --outdir:$PWD /usr/lib/nim/nimrtl.nim`  
+3) `nim c --outdir:$PWD /usr/lib/nim/nimhcr.nim`  
+4) `export LD_LIBRARY_PATH=.`  
+5) `nim c --hotcodereloading:on main.nim`  
+6) `./main`  
 open another conosole  
 change something in code, like color  
 recompile main: `nim c --hotcodereloading:on main.nim`  
