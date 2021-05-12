@@ -6,10 +6,10 @@ For Arch:
 4) `export LD_LIBRARY_PATH=.`  
 5) `nim c --hotcodereloading:on main.nim`  
 6) `./main`  
-open another console  
-change something in code, like color  
-recompile main: `nim c --hotcodereloading:on main.nim`  
-press F9 in SDL window  
+7) open another console  
+8) change something in code, like color  
+9) recompile main: `nim c --hotcodereloading:on main.nim`  
+10) press F9 in SDL window  
 color changed without redrawing, the square continues to move along the same path, this is statefull hot code reload
   
-see this great talk how it was done: https://youtu.be/7WgCt0Wooeo
+11) see this great talk how it was done: https://youtu.be/7WgCt0Wooeo
