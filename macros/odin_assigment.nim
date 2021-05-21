@@ -4,11 +4,15 @@ template `:=`(a, b: untyped) =
 template `:::`(a, b: untyped) =
   const a = b
 
-template `^`(a, b: untyped) =
-  const a = b
+template `^`(a: typed) =
+  return a
 
 sas := "sas!"
 echo sas
 
 x ::: proc (a: string): string = a & " sas!"
+
+y ::: proc (): string = ^ "sas"
+
 echo x("foo")
+echo y()
