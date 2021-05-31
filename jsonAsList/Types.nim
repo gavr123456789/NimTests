@@ -1,24 +1,30 @@
 import json
 
 type
-  Sas* = object
+  Person* = object
     name*: string
     age*: int
-    # age: int
+
+func initPerson*(name: string, age: int): Person = 
+  result = Person(name: name, age: age)
 
 ### JSON
 
-proc sasFromString*(str: string): Sas = 
+proc sasFromString*(str: string): Person = 
   let sasJson = parseJson(str)
-  result = to(sasJson, Sas)
+  result = to(sasJson, Person)
 
-func sasToString*(sas: Sas): string = 
+func personToString*(sas: Person): string = 
   result = $(%*sas)
 
+
+
+
+### TESTS
 when isMainModule:
   let
-    sas = Sas(name: "sas", age: 42)
-    jsonStrSas = sas.sasToString()
+    sas = Person(name: "sas", age: 42)
+    jsonStrSas = sas.personToString()
     objFromJson = jsonStrSas.sasFromString()
 
   echo jsonStrSas
@@ -26,11 +32,11 @@ when isMainModule:
 
 ### MOCK
 
-func create10Sas*: seq[Sas] = 
+func create10Sas*: seq[Person] = 
   for i in 0..10:
-    result.add Sas(name:"sas", age: i)
+    result.add Person(name:"sas", age: i)
 
-func convertSeqSasToSting*(sass: seq[Sas]): seq[string] = 
-  for sas in sass:
-    result.add sas.sasToString()
+func convertSeqSasToSting*(persons: seq[Person]): seq[string] = 
+  for person in persons:
+    result.add person.personToString()
 

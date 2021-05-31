@@ -1,11 +1,12 @@
 import gintro/[gtk4, gobject, gio]
-import std/with
+import std/with, strutils
 import Types
 
 
 type
   AddControlData = tuple 
-    entry: Entry
+    nameEntry: Entry
+    ageEntry: Entry
     list: StringList
   DeleteControlData = tuple
     selection: SingleSelection
@@ -51,9 +52,13 @@ proc teardown_cb(factory: gtk4.SignalListItemFactory, listitem: gtk4.ListItem) =
 
 ### Controls callbacks
 func btnAddCb(btn: Button, controlData: AddControlData) =
-  if controlData.entry.text != "":
-    controlData.list.append controlData.entry.text
-    controlData.entry.text = ""
+  if controlData.nameEntry.text != "" and controlData.ageEntry.text != "":
+    let newPerson = initPerson(controlData.nameEntry.text, parseInt(controlData.ageEntry.text))
+    controlData.list.append newPerson.personToString()
+
+    # controlData.list.append controlData.entry.text
+    controlData.nameEntry.text = ""
+    controlData.ageEntry.text = ""
   
 func btnRemoveCb(btn: Button, data: DeleteControlData) =
   data.list.remove data.selection.getSelected()
@@ -83,10 +88,15 @@ proc activate(app: gtk4.Application) =
     remove = newButton("Remove")
     removeAll = newButton("Remove All")
     add100 = newButton("Add 100")
-    entry = newEntry()
+
+    entry1 = newEntry()
+    entry2 = newEntry()
+  
+  entry1.placeholderText = "name"
+  entry2.placeholderText = "age"
 
   # Connect controls
-  add.connect("clicked", btnAddCb, (entry, sl))
+  add.connect("clicked", btnAddCb, (entry1, entry2, sl))
   remove.connect("clicked", btnRemoveCb, (ns, sl))
   removeAll.connect("clicked", btnRemoveAllCb, sl)
   add100.connect("clicked", btnAdd100Cb, sl)
@@ -99,7 +109,8 @@ proc activate(app: gtk4.Application) =
     append remove
     append removeAll
     append add100
-    append entry
+    append entry1
+    append entry2
   
   with scrolled:
     setChild lv
