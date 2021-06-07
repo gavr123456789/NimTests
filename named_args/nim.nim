@@ -1,10 +1,10 @@
 type 
-  Sas = ref object
+  Person = ref object
     age: int
     name: string
   Sus = ref object
 
-proc newBuilderListItemFactoryFromBytes*(scope: Sas | Sus = nil;
+proc newBuilderListItemFactoryFromBytes*(scope: Person | Sus = nil;
     bytes: bool) =
   echo "sas"
   
@@ -13,4 +13,4 @@ newBuilderListItemFactoryFromBytes(scope= nil, bytes= true)
 newBuilderListItemFactoryFromBytes(bytes= true)
 
 # constructor named args with :
-var sas = Sas(age: 42, name: "sas")
+var sas = Person(age: 42, name: "sas")
