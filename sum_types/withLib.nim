@@ -23,24 +23,22 @@ a.unpack(someName): # Unpacks it as `someName`
 a = "sas" # Implicit converter
 
 ### Seq
+sumTypeSeq(IntOrStringSeq, AcceptedTypes)
 
-# sumTypeSeq(IntOrString, AcceptedTypes)
-
-sumTypeSeq(IntStringSeq, AcceptedTypes)
-
-var yourSeq: IntStringSeq
+var yourSeq: IntOrStringSeq
 yourSeq.add 100
-yourSeq.add "asd"
+yourSeq.add "sas"
 
-assert yourSeq.toSeq(string) == @["asd"] # `toSeq` will return a new seq of the type queried.
+assert yourSeq.toSeq(string) == @["sas"] # `toSeq` will return a new seq of the type queried.
 yourSeq.drop(string) # This will remove all instances of the `float` variant from the list.
 yourSeq.filter(int) # This will remove all other types other than `int`
 assert yourSeq.len == 1
 
 yourSeq[0] = 100 # Assigns `0` to a new variant with value 100.
 
-# yourSeq[0] = initIntStringSeqEntry(100) # The above is the same as doing this, makes new variant and assigns it.
+yourSeq[0] = initIntOrStringSeqEntry(100) # The above is the same as doing this, makes new variant and assigns it.
 
-yourSeq.pop: # Removes the last element, passing `it` into the body.
+unpack(yourSeq.pop): # Removes the last element, passing `it` into the body.
   echo it
 assert yourSeq.len == 0
+

@@ -53,7 +53,15 @@ proc teardown_cb(factory: gtk4.SignalListItemFactory, listitem: gtk4.ListItem) =
 ### Controls callbacks
 func btnAddCb(btn: Button, controlData: AddControlData) =
   if controlData.nameEntry.text != "" and controlData.ageEntry.text != "":
-    let newPerson = initPerson(controlData.nameEntry.text, parseInt(controlData.ageEntry.text))
+    var sas = 0
+    try:
+      sas = parseInt(controlData.ageEntry.text)
+    except ValueError:
+      return
+      
+    let
+      # parsedAge = 
+      newPerson = initPerson(controlData.nameEntry.text, parseInt(controlData.ageEntry.text))
     controlData.list.append newPerson.personToString()
 
     # controlData.list.append controlData.entry.text
@@ -89,14 +97,14 @@ proc activate(app: gtk4.Application) =
     removeAll = newButton("Remove All")
     add100 = newButton("Add 100")
 
-    entry1 = newEntry()
-    entry2 = newEntry()
+    entryName = newEntry()
+    entryAge = newEntry()
   
-  entry1.placeholderText = "name"
-  entry2.placeholderText = "age"
+  entryName.placeholderText = "name"
+  entryAge.placeholderText = "age"
 
   # Connect controls
-  add.connect("clicked", btnAddCb, (entry1, entry2, sl))
+  add.connect("clicked", btnAddCb, (entryName, entryAge, sl))
   remove.connect("clicked", btnRemoveCb, (ns, sl))
   removeAll.connect("clicked", btnRemoveAllCb, sl)
   add100.connect("clicked", btnAdd100Cb, sl)
@@ -109,8 +117,8 @@ proc activate(app: gtk4.Application) =
     append remove
     append removeAll
     append add100
-    append entry1
-    append entry2
+    append entryName
+    append entryAge
   
   with scrolled:
     setChild lv
