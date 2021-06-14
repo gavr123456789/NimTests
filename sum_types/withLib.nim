@@ -2,16 +2,16 @@ import sumtypes
 type AcceptedTypes = int or string
 
 
-# creates varian object based on acceepted types
+
 sumType(IntOrString, AcceptedTypes)
 
 
-var a: IntOrString = 10 # Implicit converter
+var a: IntOrString = 10 
 
-case a: # Custom case statement that works with types
+case a: 
 of int:
-  echo it # Unpacking of the type in a case statement
-else: # Works for remaining types
+  echo it # unpack
+else: 
   discard
 
 a.unpack: # Unpacks it and runs the body on all kinds
@@ -21,3 +21,26 @@ a.unpack(someName): # Unpacks it as `someName`
   echo someName
 
 a = "sas" # Implicit converter
+
+### Seq
+
+# sumTypeSeq(IntOrString, AcceptedTypes)
+
+sumTypeSeq(IntStringSeq, AcceptedTypes)
+
+var yourSeq: IntStringSeq
+yourSeq.add 100
+yourSeq.add "asd"
+
+assert yourSeq.toSeq(string) == @["asd"] # `toSeq` will return a new seq of the type queried.
+yourSeq.drop(string) # This will remove all instances of the `float` variant from the list.
+yourSeq.filter(int) # This will remove all other types other than `int`
+assert yourSeq.len == 1
+
+yourSeq[0] = 100 # Assigns `0` to a new variant with value 100.
+
+# yourSeq[0] = initIntStringSeqEntry(100) # The above is the same as doing this, makes new variant and assigns it.
+
+yourSeq.pop: # Removes the last element, passing `it` into the body.
+  echo it
+assert yourSeq.len == 0
