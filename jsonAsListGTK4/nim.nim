@@ -3,6 +3,7 @@ import std/with, strutils
 import Types
 
 
+
 type
   AddControlData = tuple 
     nameEntry: Entry

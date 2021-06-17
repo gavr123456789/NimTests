@@ -1,3 +1,4 @@
+# export LD_LIBRARY_PATH=.
 import logic
 
 proc main() =
